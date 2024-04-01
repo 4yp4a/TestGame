@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bq2uuff3irkj0"]
+[gd_scene load_steps=25 format=3 uid="uid://bq2uuff3irkj0"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_7ujs5"]
 [ext_resource type="Texture2D" uid="uid://co3ks5rgmqjet" path="res://Player/adventurer-v1.5-Sheet.png" id="2_r247q"]
@@ -6,6 +6,26 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ide2m"]
 radius = 32.0
 height = 115.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lja6a"]
+atlas = ExtResource("2_r247q")
+region = Rect2(50, 333, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3kjpo"]
+atlas = ExtResource("2_r247q")
+region = Rect2(100, 333, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxceu"]
+atlas = ExtResource("2_r247q")
+region = Rect2(150, 333, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsb4b"]
+atlas = ExtResource("2_r247q")
+region = Rect2(250, 333, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_323by"]
+atlas = ExtResource("2_r247q")
+region = Rect2(200, 333, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3ep42"]
 atlas = ExtResource("2_r247q")
@@ -69,6 +89,26 @@ region = Rect2(300, 37, 50, 37)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_oh2g8"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lja6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3kjpo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxceu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lsb4b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_323by")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 3.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3ep42")
@@ -146,9 +186,10 @@ shape = SubResource("CapsuleShape2D_ide2m")
 position = Vector2(2, -12)
 scale = Vector2(3.97297, 3.97297)
 sprite_frames = SubResource("SpriteFrames_oh2g8")
-animation = &"fall"
+animation = &"dead"
 autoplay = "idle"
-frame_progress = 0.392252
+frame = 4
+frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.6, 1.6)
@@ -158,3 +199,5 @@ limit_bottom = 650
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

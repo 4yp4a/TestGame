@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ciwj7dkp6ykfk"]
+[gd_scene load_steps=20 format=3 uid="uid://ciwj7dkp6ykfk"]
 
 [ext_resource type="PackedScene" uid="uid://bq2uuff3irkj0" path="res://Player/player.tscn" id="1_tscu0"]
 [ext_resource type="Texture2D" uid="uid://1qwyl6bop5e5" path="res://sprites/Background layers/Layer_0011_0.png" id="3_7yhk6"]
@@ -7,6 +7,70 @@
 [ext_resource type="Texture2D" uid="uid://cn3tc7gw1b54a" path="res://sprites/Background layers/Layer_0005_5.png" id="6_06tob"]
 [ext_resource type="Texture2D" uid="uid://dbeuvvxjjs3nj" path="res://sprites/Background layers/Layer_0003_6.png" id="7_bxvw8"]
 [ext_resource type="PackedScene" uid="uid://c6wiaqdjtd4e7" path="res://ground.tscn" id="7_ea5eq"]
+[ext_resource type="Script" path="res://portal2.gd" id="8_csvy0"]
+[ext_resource type="PackedScene" uid="uid://dbfaj8tfobnob" path="res://mob.tscn" id="8_g8xgn"]
+[ext_resource type="Texture2D" uid="uid://dk780s7jjyuym" path="res://sprites/Dimensional_Portal.png" id="9_p687v"]
+
+[sub_resource type="GDScript" id="GDScript_ywk33"]
+script/source = "extends Label
+
+func _process(delta):
+	text = \"HP: \" + str($\"../../player/Player\".health)
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_182xk"]
+atlas = ExtResource("9_p687v")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ct8i"]
+atlas = ExtResource("9_p687v")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n85rq"]
+atlas = ExtResource("9_p687v")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gq70r"]
+atlas = ExtResource("9_p687v")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7bjh"]
+atlas = ExtResource("9_p687v")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7j45"]
+atlas = ExtResource("9_p687v")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lnkq1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_182xk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ct8i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n85rq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gq70r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7bjh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7j45")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8lb7k"]
+radius = 23.0
+height = 136.0
 
 [node name="level1" type="Node2D"]
 
@@ -51,7 +115,7 @@ motion_scale = Vector2(0.7, 0.7)
 motion_mirroring = Vector2(1950, 0)
 
 [node name="Layer00055" type="Sprite2D" parent="PG/ParallaxLayer4"]
-position = Vector2(836.712, -146)
+position = Vector2(843, -146)
 scale = Vector2(2.42119, 2.42119)
 texture = ExtResource("6_06tob")
 
@@ -64,11 +128,81 @@ position = Vector2(730.888, -148.5)
 scale = Vector2(2.4036, 2.4628)
 texture = ExtResource("7_bxvw8")
 
-[node name="Player" parent="." instance=ExtResource("1_tscu0")]
+[node name="player" type="Node2D" parent="."]
+
+[node name="Player" parent="player" instance=ExtResource("1_tscu0")]
 position = Vector2(158, 518)
 
-[node name="ground" parent="." instance=ExtResource("7_ea5eq")]
+[node name="mobs" type="Node2D" parent="."]
+
+[node name="mob" parent="mobs" instance=ExtResource("8_g8xgn")]
+position = Vector2(522, 86)
+
+[node name="mob2" parent="mobs" instance=ExtResource("8_g8xgn")]
+position = Vector2(263, 580)
+
+[node name="mob3" parent="mobs" instance=ExtResource("8_g8xgn")]
+position = Vector2(1022, 238)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 2.0
+offset_top = -1.0
+offset_right = 494.0
+offset_bottom = 185.0
+theme_override_font_sizes/font_size = 136
+text = "HP:"
+script = SubResource("GDScript_ywk33")
+
+[node name="portal" type="StaticBody2D" parent="."]
+position = Vector2(244, 94)
+script = ExtResource("8_csvy0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="portal"]
+scale = Vector2(4.3125, 4.3125)
+sprite_frames = SubResource("SpriteFrames_lnkq1")
+autoplay = "default"
+frame_progress = 0.168105
+
+[node name="Area2D" type="Area2D" parent="portal"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="portal/Area2D"]
+position = Vector2(4, 0)
+shape = SubResource("CapsuleShape2D_8lb7k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="portal/Area2D/CollisionShape2D"]
+position = Vector2(4, 0)
+shape = SubResource("CapsuleShape2D_8lb7k")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="ground3" parent="Node" instance=ExtResource("7_ea5eq")]
+position = Vector2(1287, 148)
+
+[node name="ground4" parent="Node" instance=ExtResource("7_ea5eq")]
+position = Vector2(1379, -36)
+
+[node name="ground9" parent="Node" instance=ExtResource("7_ea5eq")]
+position = Vector2(1964, -487)
+scale = Vector2(1.385, 1.385)
+
+[node name="ground5" parent="Node" instance=ExtResource("7_ea5eq")]
+position = Vector2(289, -170)
+
+[node name="ground6" parent="Node" instance=ExtResource("7_ea5eq")]
+position = Vector2(421, -582)
+
+[node name="ground7" parent="Node" instance=ExtResource("7_ea5eq")]
+position = Vector2(1349, -582)
+
+[node name="ground8" parent="Node" instance=ExtResource("7_ea5eq")]
+position = Vector2(2275, -584)
+
+[node name="ground" parent="Node" instance=ExtResource("7_ea5eq")]
 position = Vector2(358, 314)
 
-[node name="ground2" parent="." instance=ExtResource("7_ea5eq")]
+[node name="ground2" parent="Node" instance=ExtResource("7_ea5eq")]
 position = Vector2(1285, 315)
+
+[connection signal="body_entered" from="portal/Area2D" to="portal" method="_on_area_2d_body_entered"]

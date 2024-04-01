@@ -1,0 +1,190 @@
+[gd_scene load_steps=18 format=3 uid="uid://k0dqiqbvvili"]
+
+[ext_resource type="Script" path="res://pg.gd" id="1_ust4r"]
+[ext_resource type="Texture2D" uid="uid://1qwyl6bop5e5" path="res://sprites/Background layers/Layer_0011_0.png" id="2_1kec2"]
+[ext_resource type="Texture2D" uid="uid://c7jo31a1deugw" path="res://sprites/Background layers/Layer_0009_2.png" id="3_ahvy1"]
+[ext_resource type="Texture2D" uid="uid://d3t1ugbhuinbb" path="res://sprites/Background layers/Layer_0008_3.png" id="4_ey3kg"]
+[ext_resource type="Texture2D" uid="uid://cn3tc7gw1b54a" path="res://sprites/Background layers/Layer_0005_5.png" id="5_b5xg2"]
+[ext_resource type="Texture2D" uid="uid://dbeuvvxjjs3nj" path="res://sprites/Background layers/Layer_0003_6.png" id="6_i6scc"]
+[ext_resource type="PackedScene" uid="uid://c6wiaqdjtd4e7" path="res://ground.tscn" id="7_5c4cm"]
+[ext_resource type="Texture2D" uid="uid://dk780s7jjyuym" path="res://sprites/Dimensional_Portal.png" id="9_qpi7j"]
+[ext_resource type="PackedScene" uid="uid://bq2uuff3irkj0" path="res://Player/player.tscn" id="10_65aue"]
+[ext_resource type="PackedScene" uid="uid://dbfaj8tfobnob" path="res://mob.tscn" id="10_iw35d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_182xk"]
+atlas = ExtResource("9_qpi7j")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ct8i"]
+atlas = ExtResource("9_qpi7j")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n85rq"]
+atlas = ExtResource("9_qpi7j")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gq70r"]
+atlas = ExtResource("9_qpi7j")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7bjh"]
+atlas = ExtResource("9_qpi7j")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7j45"]
+atlas = ExtResource("9_qpi7j")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lnkq1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_182xk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ct8i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n85rq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gq70r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7bjh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7j45")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[node name="level2" type="Node2D"]
+
+[node name="PG" type="ParallaxBackground" parent="."]
+scroll_offset = Vector2(0, -434)
+script = ExtResource("1_ust4r")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="PG"]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(1481, 0)
+
+[node name="Layer00110" type="Sprite2D" parent="PG/ParallaxLayer"]
+position = Vector2(563, 42.86)
+scale = Vector2(2, 2.04)
+texture = ExtResource("2_1kec2")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="PG"]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(1780, 0)
+
+[node name="Layer00092" type="Sprite2D" parent="PG/ParallaxLayer2"]
+position = Vector2(700.762, -64.5)
+scale = Vector2(2.29582, 2.34174)
+texture = ExtResource("3_ahvy1")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="PG"]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(1780, 0)
+
+[node name="Layer00083" type="Sprite2D" parent="PG/ParallaxLayer3"]
+position = Vector2(538.633, -150)
+scale = Vector2(2.3564, 2.40353)
+texture = ExtResource("4_ey3kg")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="PG"]
+motion_scale = Vector2(0.7, 0.7)
+motion_mirroring = Vector2(1950, 0)
+
+[node name="Layer00055" type="Sprite2D" parent="PG/ParallaxLayer4"]
+position = Vector2(836.712, -146)
+scale = Vector2(2.42119, 2.42119)
+texture = ExtResource("5_b5xg2")
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="PG"]
+motion_scale = Vector2(0.9, 0.9)
+motion_mirroring = Vector2(1750, 0)
+
+[node name="Layer00036" type="Sprite2D" parent="PG/ParallaxLayer5"]
+position = Vector2(730.888, -148.5)
+scale = Vector2(2.4036, 2.4628)
+texture = ExtResource("6_i6scc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(62, 512)
+scale = Vector2(4.3125, 4.3125)
+sprite_frames = SubResource("SpriteFrames_lnkq1")
+autoplay = "default"
+frame_progress = 0.168105
+
+[node name="ground" parent="." instance=ExtResource("7_5c4cm")]
+position = Vector2(459, 254)
+
+[node name="ground" parent="ground" instance=ExtResource("7_5c4cm")]
+position = Vector2(924, 0)
+
+[node name="ground" parent="ground/ground" instance=ExtResource("7_5c4cm")]
+position = Vector2(1, -155)
+
+[node name="ground" parent="ground/ground/ground" instance=ExtResource("7_5c4cm")]
+position = Vector2(68, -156)
+
+[node name="ground" parent="ground/ground/ground/ground" instance=ExtResource("7_5c4cm")]
+position = Vector2(841, 384)
+
+[node name="ground" parent="ground/ground/ground/ground/ground" instance=ExtResource("7_5c4cm")]
+position = Vector2(702, -146)
+
+[node name="ground" parent="ground/ground/ground/ground/ground/ground" instance=ExtResource("7_5c4cm")]
+position = Vector2(-758, -3.05176e-05)
+scale = Vector2(0.31, 0.31)
+
+[node name="ground" parent="ground/ground/ground/ground/ground/ground/ground" instance=ExtResource("7_5c4cm")]
+position = Vector2(-1370.97, -12235.5)
+scale = Vector2(20.015, 20.015)
+
+[node name="ground2" parent="ground/ground/ground/ground/ground/ground/ground" instance=ExtResource("7_5c4cm")]
+position = Vector2(-1400, -367.742)
+rotation = -1.5708
+scale = Vector2(15.77, 15.77)
+
+[node name="ground2" parent="ground/ground/ground/ground/ground/ground/ground/ground2" instance=ExtResource("7_5c4cm")]
+position = Vector2(-2083.87, -1754.84)
+rotation = 1.5708
+scale = Vector2(15.77, 15.77)
+
+[node name="ground3" parent="ground/ground/ground/ground/ground/ground/ground" instance=ExtResource("7_5c4cm")]
+position = Vector2(-2100, -535.484)
+rotation = 1.5708
+scale = Vector2(15.77, 15.77)
+
+[node name="ground2" parent="ground/ground/ground/ground/ground/ground/ground/ground3" instance=ExtResource("7_5c4cm")]
+position = Vector2(-2083.87, -1754.84)
+rotation = 1.5708
+scale = Vector2(15.77, 15.77)
+
+[node name="Player" parent="." instance=ExtResource("10_65aue")]
+position = Vector2(63, 520)
+
+[node name="mob" parent="." instance=ExtResource("10_iw35d")]
+position = Vector2(1912, 601)
+
+[node name="mob2" parent="." instance=ExtResource("10_iw35d")]
+position = Vector2(2029, 599)
+
+[node name="mob3" parent="." instance=ExtResource("10_iw35d")]
+position = Vector2(2135, 601)
+
+[node name="mob4" parent="." instance=ExtResource("10_iw35d")]
+position = Vector2(2247, 605)
+
+[node name="mob5" parent="." instance=ExtResource("10_iw35d")]
+position = Vector2(2354, 603)
+
+[node name="mob6" parent="." instance=ExtResource("10_iw35d")]
+position = Vector2(2462, 605)
+
+[node name="mob7" parent="." instance=ExtResource("10_iw35d")]
+position = Vector2(355, 531)
